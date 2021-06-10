@@ -1,6 +1,6 @@
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import BellIcon from '../IconComponents/BellIcon';
 import MenuIcon from '../IconComponents/MenuIcon';
 import XIcon from '../IconComponents/XIcon';
@@ -9,6 +9,12 @@ const navigation = [
   { name: 'Home', path: '/' },
   { name: 'Details', path: '/details' },
   { name: 'About', path: '/about' },
+];
+
+const menuItems = [
+  { name: 'Your Profile', path: '/profile' },
+  { name: 'Settings', path: '/settings' },
+  { name: 'Sign out', path: '/sign-out' }
 ]
 
 function classNames(...classes) {
@@ -33,17 +39,8 @@ const Navbar = () => {
                 </Disclosure.Button>
               </div>
               <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
-                <div className="flex-shrink-0 flex items-center">
-                  <img
-                    className="block lg:hidden h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
-                    alt="Workflow"
-                  />
-                  <img
-                    className="hidden lg:block h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
-                    alt="Workflow"
-                  />
+                <div className='flex items-center'>
+                  <Link to="/" className="text-gray-200 text-xl">E-TECH</Link>
                 </div>
                 <div className="hidden sm:block sm:ml-6">
                   <div className="flex space-x-4">
@@ -96,45 +93,23 @@ const Navbar = () => {
                           static
                           className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
                         >
-                          <Menu.Item>
-                            {({ active }) => (
-                              <a
-                                href="#s"
-                                className={classNames(
-                                  active ? 'bg-gray-100' : '',
-                                  'block px-4 py-2 text-sm text-gray-700'
-                                )}
-                              >
-                                Your Profile
-                              </a>
-                            )}
-                          </Menu.Item>
-                          <Menu.Item>
-                            {({ active }) => (
-                              <a
-                                href="#s"
-                                className={classNames(
-                                  active ? 'bg-gray-100' : '',
-                                  'block px-4 py-2 text-sm text-gray-700'
-                                )}
-                              >
-                                Settings
-                              </a>
-                            )}
-                          </Menu.Item>
-                          <Menu.Item>
-                            {({ active }) => (
-                              <a
-                                href="#s"
-                                className={classNames(
-                                  active ? 'bg-gray-100' : '',
-                                  'block px-4 py-2 text-sm text-gray-700'
-                                )}
-                              >
-                                Sign out
-                              </a>
-                            )}
-                          </Menu.Item>
+                          {
+                            menuItems.map(item => (
+                              <Menu.Item key={item.path}>
+                              {({ active }) => (
+                                <Link
+                                  to={item.path}
+                                  className={classNames(
+                                    active ? 'bg-gray-100' : '',
+                                    'block px-4 py-2 text-sm text-gray-700'
+                                  )}
+                                >
+                                  {item.name}
+                                </Link>
+                              )}
+                            </Menu.Item>
+                            ))
+                          }
                         </Menu.Items>
                       </Transition>
                     </>
